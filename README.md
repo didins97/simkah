@@ -1,10 +1,10 @@
 <h1 style="color:blue">SISTEM INFORMASI MANAJEMEN PERNIKAHAN</h1>
 
 <h3>Screenshot</h3>
-<img src="public/assets/doc/home.png" />
-<img src="public/assets/doc/login.png" />
-<img src="public/assets/doc/admin.png" />
-<img src="public/assets/doc/vendor.png" />
+<img src="public/assets/img/doc/home.png" />
+<img src="public/assets/img/doc/login.png" />
+<img src="public/assets/img/doc/admin.png" />
+<img src="public/assets/img/doc/vendor.png" />
 
 
 
