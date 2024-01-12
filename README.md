@@ -12,7 +12,7 @@
 <ul>
     <li>Clone the Repo: <br> </li>
     <li style=""> > git clone https://github.com/didins97/simkah.git</li>
-    <li> > cd hospitalMS</li>
+    <li> > cd simkah</li>
     <li> > composer install or composer update</li>
     <li> > cp .env.example .env</li>
     <li> > Set up .env file</li>
