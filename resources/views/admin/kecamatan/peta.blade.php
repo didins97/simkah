@@ -66,16 +66,6 @@
                     data: data
                 });
 
-                // map.addLayer({
-                //     'id': 'maine',
-                //     'type': 'fill',
-                //     'source': 'kecamatan', // reference the data source
-                //     'layout': {},
-                //     'paint': {
-                //         'fill-color': '#0080ff', // blue color fill
-                //         'fill-opacity': 0.3
-                //     }
-                // });
                 // Add a black outline around the polygon.
                 map.addLayer({
                     'id': 'outline',

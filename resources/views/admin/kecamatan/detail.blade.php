@@ -46,63 +46,37 @@
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
 
     <script>
+        var data = @json($data)
+
         mapboxgl.accessToken = `{{ env('MAPBOX_TOKEN') }}`;
         var map = new mapboxgl.Map({
             container: 'map',
-            center: [128.40546, 2.19924],
-            style: 'mapbox://styles/mapbox/light-v11',
-            zoom: 10.5,
+            center: data.lokasi['coordinates'],
+            style: 'mapbox://styles/mapbox/streets-v12',
+            zoom: 10.4,
         });
 
         var dataId = $('#map').data('id');
 
-        fetch(`/api/geojson/kecamatan/${dataId}`)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                // Tambahkan sumber data GeoJSON
-                map.addSource('kecamatan', {
-                    type: 'geojson',
-                    data: data
-                });
-                map.addLayer({
-                    'id': 'outline',
-                    'type': 'line',
-                    'source': 'kecamatan',
-                    'layout': {},
-                    'paint': {
-                        'line-color': '#000',
-                        'line-width': 3
-                    }
-                });
-                map.addLayer({
-                    'id': 'maine',
-                    'type': 'fill',
-                    'source': 'kecamatan', // reference the data source
-                    'layout': {},
-                    'paint': {
-                        'fill-color': '#0080ff', // blue color fill
-                        'fill-opacity': 0.5
-                    }
-                });
+        console.log(data.lokasi['coordinates']);
 
-                // map.addLayer({
-                //     'id': 'choropleth-labels',
-                //     'type': 'symbol',
-                //     'source': 'kecamatan',
-                //     'layout': {
-                //         'text-field': ['get', 'nama'], // Ini akan mengambil nilai dari properti 'nama'
-                //         'text-size': 15,
-                //         'text-anchor': 'top',
-                //         'text-font': [
-                //             'Open Sans Bold',
-                //             'Arial Unicode MS Bold'
-                //         ],
-                //         'text-transform': 'uppercase',
-                //         'text-letter-spacing': 0.05,
-                //         'text-offset': [0, 1.5]
-                //     }
-                // });
+        map.on('load', () => {
+            map.addSource('kecamatanID', {
+                type: 'geojson', //geojson,video,image,canvas
+                data: data.borderline
             });
+
+            // Add a black outline around the polygon.
+            map.addLayer({
+                'id': 'outline',
+                'type': 'line',
+                'source': 'kecamatanID',
+                'layout': {},
+                'paint': {
+                    'line-color': '#fc544b',
+                    'line-width': 3
+                }
+            });
+        })
     </script>
 @endpush

@@ -38,6 +38,27 @@
             max-width: 400px;
             font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
         }
+
+        .custom-popup {
+            max-width: 300px;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            background-color: #fff;
+        }
+
+        .popup-header {
+            background-color: #6677EF;
+            color: #fff;
+            padding: 8px;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .list-group-item {
+            border: none;
+            padding: 8px;
+        }
     </style>
 @endsection
 
@@ -135,12 +156,6 @@
             <div class="card">
                 <div class="card-header">
                     <h4>Jumlah Pendaftaran Pernikahan</h4>
-                    <div class="card-header-action">
-                        <div class="btn-group">
-                            <a href="#" class="btn btn-primary">Month</a>
-                            <a href="#" class="btn">Week</a>
-                        </div>
-                    </div>
                 </div>
                 <div class="card-body">
                     <div class="chartjs-size-monitor"
@@ -156,32 +171,6 @@
                     </div>
                     <canvas id="myChart" height="860" style="display: block; width: 710px; height: 430px;"
                         width="1420" class="chartjs-render-monitor"></canvas>
-                    {{-- <div class="statistic-details mt-sm-4">
-                        <div class="statistic-details-item">
-                            <span class="text-muted"><span class="text-primary"><i class="fas fa-caret-up"></i></span>
-                                7%</span>
-                            <div class="detail-value">$243</div>
-                            <div class="detail-name">Pendaftaran Hari Ini</div>
-                        </div>
-                        <div class="statistic-details-item">
-                            <span class="text-muted"><span class="text-danger"><i class="fas fa-caret-down"></i></span>
-                                23%</span>
-                            <div class="detail-value">$2,902</div>
-                            <div class="detail-name">Pendaftaran Minggu Ini</div>
-                        </div>
-                        <div class="statistic-details-item">
-                            <span class="text-muted"><span class="text-primary"><i
-                                        class="fas fa-caret-up"></i></span>9%</span>
-                            <div class="detail-value">$12,821</div>
-                            <div class="detail-name">Pendaftaran Bulan Ini</div>
-                        </div>
-                        <div class="statistic-details-item">
-                            <span class="text-muted"><span class="text-primary"><i class="fas fa-caret-up"></i></span>
-                                19%</span>
-                            <div class="detail-value">$92,142</div>
-                            <div class="detail-name">Pendaftaran Tahun Ini</div>
-                        </div>
-                    </div> --}}
                 </div>
             </div>
         </div>
@@ -298,7 +287,7 @@
         const map = new mapboxgl.Map({
             container: 'map',
             // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
-            style: 'mapbox://styles/mapbox/light-v11',
+            style: 'mapbox://styles/mapbox/streets-v12',
             center: [128.441445160133, 2.3397525114082125],
             minZoom: 2,
             zoom: 9
@@ -309,7 +298,6 @@
         fetch('/api/geojson/kecamatan/polygon')
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 // Tambahkan sumber data GeoJSON
                 map.addSource('polygon', {
                     type: 'geojson',
@@ -351,9 +339,19 @@
                 })
 
                 map.on('click', 'choropleth-layer', (e) => {
-                    console.log('object');
                     var features = e.features;
-                    var popupContent = '<ul class="list-group list-group-flush"><li class="list-group-item">Cras justo odio</li><li class="list-group-item">Dapibus ac facilisis in</li><li class="list-group-item">Morbi leo risus</li><li class="list-group-item">Porta ac consectetur ac</li><li class="list-group-item">Vestibulum at eros</li></ul>';
+                    var popupContent = `<div class="custom-popup">
+                            <div class="popup-header">
+                                <h6>Informasi Wilayah</h6>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item"><strong>Provinsi:</strong> Maluku Utara</li>
+                                <li class="list-group-item"><strong>Kabupaten/Kota:</strong> Pulau Morotai</li>
+                                <li class="list-group-item"><strong>Kecamatan:</strong> ${features[0].properties.nama_kec}</li>
+                                <li class="list-group-item"><strong>Luas Wilayah KM<sup>2</sup>:</strong> ${features[0].properties.SHAPE_Area}</li>
+                                <li class="list-group-item"><strong>Total Pernikahan:</strong> ${features[0].properties.total_pernikahan}</li>
+                            </ul>
+                        </div>`;
 
                     new mapboxgl.Popup()
                         .setLngLat(e.lngLat)
@@ -376,8 +374,8 @@
             .then(response => response.json())
             .then(data => {
                 map.addSource('points', {
-                    type : 'geojson',
-                    data : data
+                    type: 'geojson',
+                    data: data
                 });
 
                 map.addLayer({
@@ -390,7 +388,7 @@
                             'concat',
                             ['get', 'nama'],
                             '\n(',
-                                ['get', 'total_pernikahan'],
+                            ['get', 'total_pernikahan'],
                             ')'
                         ],
                         'text-font': [
