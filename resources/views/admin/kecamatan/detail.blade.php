@@ -6,8 +6,8 @@
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
     <style>
         #map {
-            width: 600px;
-            height: 500px;
+            width: 100%;
+            min-height: 500px;
         }
     </style>
 @endsection
@@ -77,6 +77,8 @@
                     'line-width': 3
                 }
             });
+
+            map.resize()
         })
     </script>
 @endpush
