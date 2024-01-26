@@ -4,62 +4,7 @@
 
 @section('css')
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css" rel="stylesheet">
-    <style>
-        #map {
-            width: 100%;
-            min-height: 500px;
-        }
-
-        .legend {
-            background-color: #fff;
-            border-radius: 3px;
-            bottom: 30px;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-            font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-            padding: 8px;
-            position: absolute;
-            right: 30px;
-            z-index: 1;
-        }
-
-        .legend h4 {
-            margin: 0 0 10px;
-        }
-
-        .legend div span {
-            border-radius: 50%;
-            display: inline-block;
-            height: 10px;
-            margin-right: 5px;
-            width: 10px;
-        }
-
-        .mapboxgl-popup {
-            max-width: 400px;
-            font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-        }
-
-        .custom-popup {
-            max-width: 300px;
-            padding: 10px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            background-color: #fff;
-        }
-
-        .popup-header {
-            background-color: #6677EF;
-            color: #fff;
-            padding: 8px;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-        }
-
-        .list-group-item {
-            border: none;
-            padding: 8px;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('assets') }}/css/custom.css">
 @endsection
 
 @section('content')

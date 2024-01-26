@@ -1,5 +1,7 @@
 @extends('app')
 
+@section('header', 'Detail Pengguna')
+
 @section('content')
     <div class="row">
         <div class="col-12">

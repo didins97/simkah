@@ -12,7 +12,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="float-right">
-                        <button class="btn btn-primary">Tambah</button>
+                        <a href="{{ route('user.pernikahan.index') }}" class="btn btn-primary">Tambah</a>
                     </div>
                     <div class="clearfix mb-3"></div>
                     <div class="table-responsive">
@@ -31,7 +31,7 @@
                                     <tr>
                                         <th scope="row">{{ $loop->iteration }}</th>
                                         <td>{{$item->kode_pendaftar}}</td>
-                                        <td>{{ \Carbon\Carbon::parse($item->tanggal_nikah)->format('d F Y') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d F Y') }}</td>
                                         <td>{{ $item->calpenPria->nama }}</td>
                                         <td>{{ $item->calpenWanita->nama }}</td>
                                         <td class="cell">

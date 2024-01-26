@@ -21,13 +21,15 @@ class PendaftaranNikahController extends Controller
      */
     public function index()
     {
+        $registrasiNikah = PendaftaranNikah::orderBy('created_at', 'desc');
+
         if (auth()->user()->level == 'user'){
-            $registrasiNikah = PendaftaranNikah::where('user_id', auth()->user()->id)->orderBy('created_at', 'desc')->paginate(10);
+            $registrasiNikah = $registrasiNikah->where('user_id', auth()->user()->id)->paginate(10);
             return view('user.pernikahan.index', compact('registrasiNikah'));
-        } else {
-            $registrasiNikah = PendaftaranNikah::orderBy('created_at', 'desc')->paginate(10);
-            return view('admin.pernikahan.index', compact('registrasiNikah'));
         }
+
+        $registrasiNikah = PendaftaranNikah::orderBy('created_at', 'desc')->paginate(10);
+        return view('admin.pernikahan.index', compact('registrasiNikah'));
     }
 
     /**
