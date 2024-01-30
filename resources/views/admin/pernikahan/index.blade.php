@@ -34,9 +34,9 @@
                                     <th scope="col">Status</th>
                                     <th scope="col">Aksi</th>
                                 </tr>
-                                @foreach ($registrasiNikah as $item)
+                                @foreach ($pernikahan as $item)
                                     <tr>
-                                        <th scope="row">{{ ($registrasiNikah->currentPage() - 1)  * $registrasiNikah->count() + $loop->iteration }}</th>
+                                        <th scope="row">{{ ($pernikahan->currentPage() - 1)  * $pernikahan->count() + $loop->iteration }}</th>
                                         <td>{{$item->kode_pendaftar}}</td>
                                         <td>{{ \Carbon\Carbon::parse($item->tanggal_nikah)->format('d F Y') }}</td>
                                         <td>{{ $item->calpenPria->nama }}</td>
@@ -67,7 +67,7 @@
                             </tbody>
                         </table>
                         <div class="float-right">
-                            {{ $registrasiNikah->links('pagination::bootstrap-4') }}
+                            {{ $pernikahan->links('pagination::bootstrap-4') }}
                         </div>
                     </div>
                 </div>

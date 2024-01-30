@@ -12,7 +12,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="float-right">
-                        <a href="{{ route('user.pernikahan.index') }}" class="btn btn-primary">Tambah</a>
+                        <a href="{{ route('user.pernikahan.create') }}" class="btn btn-primary">Tambah</a>
                     </div>
                     <div class="clearfix mb-3"></div>
                     <div class="table-responsive">
@@ -27,7 +27,7 @@
                                     <th scope="col">Status</th>
                                     <th scope="col">Aksi</th>
                                 </tr>
-                                @foreach ($registrasiNikah as $item)
+                                @foreach ($pernikahan as $item)
                                     <tr>
                                         <th scope="row">{{ $loop->iteration }}</th>
                                         <td>{{$item->kode_pendaftar}}</td>
@@ -59,7 +59,7 @@
                             </tbody>
                         </table>
                         <div class="float-right">
-                            {{ $registrasiNikah->links('pagination::bootstrap-4') }}
+                            {{ $pernikahan->links('pagination::bootstrap-4') }}
                         </div>
                     </div>
                 </div>

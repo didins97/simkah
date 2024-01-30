@@ -9,8 +9,8 @@
         type="text/css">
     <style>
         #map {
-            width: 950px;
-            height: 500px;
+            width: 100%;
+            min-height: 900px;
         }
     </style>
 @endsection

@@ -1,126 +1,97 @@
 $(document).ready(function () {
-    // change warga negara
-    $('#waSuami').change(function (e) {
-        var selectOption = $(this).val();
-        switch (selectOption) {
-            case "wni":
-                $('#naSuami, #paspor').prop('disabled', true);
-                $('#nik').prop('disabled', false);
-                break;
-            case "wna":
-                $('#naSuami, #paspor').prop('disabled', false);
-                $('#nik').prop('disabled', true);
-                break;
-            default:
-                $('#naSuami, #paspor, #nik').prop('disabled', false);
-                break;
-        }
+
+    handleStatus(('#status_ayah'), $('#ayah .ayah'), "nama_ayah")
+    handleStatus(('#status_ibu'), $('#ibu .ibu'), "nama_ibu")
+    // handleStatusWali(('#status_wali'))
+    // handleStatus($(this), $("#ayah .ayah"), "nama_ayah");
+    // handleStatus($(this), $("#ibu .ibu"), "nama_ibu");
+    // handleWargaNegara($(this), ['#negsal_wali', '#passpor_wali'], '#nik_nip_wali')
+    // handleWargaNegara($(this), ['#negsal_ayah', '#passpor_ayah'], '#nik_ayah');
+    // handleWargaNegara($(this), ['#negsal_ibu', '#passpor_ibu'], '#nik_ibu');
+
+    $("#status_ayah").change(function () {
+        handleStatus($(this), $("#ayah .ayah"), "nama_ayah");
     });
 
-    $('#wnAyahSuami').change(function (e) {
-        var selectOption = $(this).val();
-        switch (selectOption) {
-            case "wni":
-                $('#naAyahSuami, #pasporAyahSuami').prop('disabled', true);
-                $('#nikAyahSuami').prop('disabled', false);
-                break;
-            case "wna":
-                $('#naAyahSuami, #pasporAyahSuami').prop('disabled', false);
-                $('#nikAyahSuami').prop('disabled', true);
-                break;
-            default:
-                $('#naAyahSuami, #pasporAyahSuami, #nikAyahSuami').prop('disabled', false);
-                break;
-        }
+    $("#status_ibu").change(function () {
+        handleStatus($(this), $("#ibu .ibu"), "nama_ibu");
     });
 
-    $('#wnIbuSuami').change(function (e) {
-        var selectOption = $(this).val();
-        switch (selectOption) {
-            case "wni":
-                $('#naIbuSuami, #pasporIbuSuami').prop('disabled', true);
-                $('#nikIbuSuami').prop('disabled', false);
-                break;
-            case "wna":
-                $('#naIbuSuami, #pasporIbuSuami').prop('disabled', false);
-                $('#nikIbuSuami').prop('disabled', true);
-                break;
-            default:
-                $('#naIbuSuami, #pasporIbuSuami, #nikIbuSuami').prop('disabled', false);
-                break;
-        }
-    });
+    $("#wn_wali").change(function () {
+        handleWargaNegara($(this), ['#negsal_wali', '#passpor_wali'], '#nik_nip_wali')
+    })
 
-    $('#wnIstri').change(function (e) {
-        var selectOption = $(this).val();
-        switch (selectOption) {
-            case "wni":
-                $('#naIstri, #pasporIstri').prop('disabled', true);
-                $('#nikIstri').prop('disabled', false);
-                break;
-            case "wna":
-                $('#naIstri, #pasporIstri').prop('disabled', false);
-                $('#nikIstri').prop('disabled', true);
-                break;
-            default:
-                $('#naIstri, #pasporIstri, #nikIstri').prop('disabled', false);
-                break;
-        }
-    });
+    $("#warga_negara").change(function () {
+        handleWargaNegara($(this), ['#negara_asal', '#passpor'], '#nik');
+    })
 
-    $('#wnAyahIstri').change(function (e) {
-        var selectOption = $(this).val();
-        switch (selectOption) {
-            case "wni":
-                $('#naAyahIstri, #pasporAyahIstri').prop('disabled', true);
-                $('#nikAyahIstri').prop('disabled', false);
-                break;
-            case "wna":
-                $('#naAyahIstri, #pasporAyahIstri').prop('disabled', false);
-                $('#nikAyahIstri').prop('disabled', true);
-                break;
-            default:
-                $('#naAyahIstri, #pasporAyahIstri, #nikAyahIstri').prop('disabled', false);
-                break;
-        }
-    });
+    $("#wn_ayah").change(function () {
+        handleWargaNegara($(this), ['#negsal_ayah', '#passpor_ayah'], '#nik_ayah');
+    })
 
-    $('#wnIbuIstri').change(function (e) {
-        var selectOption = $(this).val();
-        switch (selectOption) {
-            case "wni":
-                $('#naIbuIstri, #pasporIbuIstri').prop('disabled', true);
-                $('#nikIbuIstri').prop('disabled', false);
-                break;
-            case "wna":
-                $('#naIbuIstri, #pasporIbuIstri').prop('disabled', false);
-                $('#nikIbuIstri').prop('disabled', true);
-                break;
-            default:
-                $('#naIbuIstri, #pasporIbuIstri, #nikIbuIstri').prop('disabled', false);
-                break;
-        }
-    });
+    $("#wn_ibu").change(function () {
+        handleWargaNegara($(this), ['#negsal_ibu', '#passpor_ibu'], '#nik_ibu');
+    })
 
-    $('#wnWali').change(function (e) {
-        var selectOption = $(this).val();
-        switch (selectOption) {
-            case "wni":
-                $('#naWali, #pasporWali').prop('disabled', true);
-                $('#nikWali').prop('disabled', false);
-                break;
-            case "wna":
-                $('#naWali, #pasporWali').prop('disabled', false);
-                $('#nikWali').prop('disabled', true);
-                break;
-            default:
-                $('#naWali, #pasporWali, #nikWali').prop('disabled', false);
-                break;
+    $("#status_wali").change(function () {
+        handleStatusWali($(this));
+    })
+
+    function handleWargaNegara(wargaNegaraElem, inputToDisabled, inputToEneble) {
+        var value = wargaNegaraElem.val();
+
+        if (value == "wni") {
+            disableInputs(inputToDisabled);
+            enableInput(inputToEneble)
+        } else if (value == "wna") {
+            disableInput(inputToEneble);
+            enableInputs(inputToDisabled);
+        } else {
+            enableInputs([...inputsToDisable, inputToEnable]);
         }
-    });
+    }
+
+    function handleStatus(statusElem, containerElem, excludedInputName) {
+        $(statusElem).is(":checked") ? disableInput(containerElem.not("[name='" + excludedInputName + "']")) : enableInput(containerElem);
+    }
+
+    function handleStatusWali(statusElem) {
+        var value = statusElem.val();
+        if (value == 'hakim') {
+            $('.input-wali').not("[name='nama_wali'], [name='alasan_wali_hakim']").prop('disabled', true);
+        } else {
+            $('.input-wali').prop('disabled', false);
+            $('#alasan_wali_hakim').prop('disabled', true)
+        }
+
+        console.log(value);
+    }
+
+    function disableInputs(inputs) {
+        $(inputs.join(', ')).prop('disabled', true);
+    }
+
+    function enableInputs(inputs) {
+        $(inputs.join(', ')).prop('disabled', false);
+    }
+
+    function disableInput(input) {
+        $(input).prop('disabled', true);
+    }
+
+    function enableInput(input) {
+        $(input).prop('disabled', false);
+    }
+
+    // if ($('#status_wali').val() = 'nasab') {
+    //     $('.input-wali').prop('disabled', false);
+    //     $('#alasan_wali_hakim').prop('disabled', true)
+    // } else {
+    //     $("#ayah .ayah").not("[name='nama_ayah']").prop("disabled", true);
+    // }
 
     // tanggal lahir
-    $('#tanggal_lahir_suami').change(function (e) {
+    $('#tgl_lahir').change(function (e) {
         var dateOfBirth = new Date($(this).val());
         var newDate = new Date();
         var age = newDate.getFullYear() - dateOfBirth.getFullYear();
@@ -130,85 +101,18 @@ $(document).ready(function () {
             age--;
         }
 
-        $('#umur_suami').val(age)
-    });
-
-    $('#tanggal_lahir_istri').change(function (e) {
-        var dateOfBirth = new Date($(this).val());
-        var newDate = new Date();
-        var age = newDate.getFullYear() - dateOfBirth.getFullYear();
-
-        if (dateOfBirth.getMonth() > dateOfBirth.getMonth() || (dateOfBirth.getMonth() ===
-            dateOfBirth.getMonth() && dateOfBirth.getDate() > dateOfBirth.getDate())) {
-            age--;
-        }
-
-        $('#umur_istri').val(age)
-    });
-
-    $("#statusAyahS").change(function () {
-        if ($(this).is(":checked")) {
-            // Jika dicentang, maka aktifkan input nama dan nonaktifkan input lainnya
-            $("#asuami .ayah-suami").not("[name='nama_ayah_s']").prop("disabled", true);
-        } else {
-            // Jika tidak dicentang, maka aktifkan semua input
-            $("#asuami .ayah-suami").prop("disabled", false);
-        }
-    });
-
-    $("#statusIbuS").change(function () {
-        if ($(this).is(":checked")) {
-            // Jika dicentang, maka aktifkan input nama dan nonaktifkan input lainnya
-            $("#isuami .ibu-suami").not("[name='nama_ibu_s']").prop("disabled", true);
-        } else {
-            // Jika tidak dicentang, maka aktifkan semua input
-            $("#isuami .ibu-suami").prop("disabled", false);
-        }
-    });
-
-    $("#statusAyahI").change(function (e) {
-        if ($(this).is(":checked")) {
-            // Jika dicentang, maka aktifkan input nama dan nonaktifkan input lainnya
-            $("#aistri .ayah-istri").not("[name='nama_ayah_i']").prop("disabled", true);
-        } else {
-            // Jika tidak dicentang, maka aktifkan semua input
-            $("#aistri .ayah-istri").prop("disabled", false);
-        }
-    });
-
-    $("#statusIbuI").change(function (e) {
-        if ($(this).is(":checked")) {
-            // Jika dicentang, maka aktifkan input nama dan nonaktifkan input lainnya
-            $("#iistri .ibu-istri").not("[name='nama_ibu_i']").prop("disabled", true);
-        } else {
-            // Jika tidak dicentang, maka aktifkan semua input
-            $("#iistri .ibu-istri").prop("disabled", false);
-        }
-    });
-
-    $("#statusWali").change(function (e) {
-        var selectOption = $(this).val();
-        switch (selectOption) {
-            case "hakim":
-                $('.input-wali').not("[name='nama_w'], [name='alasan_w_hakim']").prop('disabled', true);
-                break;
-            case "nasab":
-                $('.input-wali').prop('disabled', false);
-                $('#sebabAlasanHakim').prop('disabled', true)
-                break;
-        }
+        $('#umur').val(age)
     });
 
     $("#nikahDi").change(function (e) {
         var selectOption = $(this).val();
         switch (selectOption) {
-            case "di_luar":
+            case "diluar":
                 $('#kordinatLokasi').prop('disabled', false);
                 break;
-            case "di_kua":
+            case "dikua":
                 $('#kordinatLokasi').prop('disabled', true)
                 break;
         }
     });
-
 });

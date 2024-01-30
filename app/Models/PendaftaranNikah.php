@@ -48,4 +48,8 @@ class PendaftaranNikah extends Model
     {
         return $this->belongsToMany(Dokumen::class, 'persetujuan_dokumen', 'pernikahan_id', 'dokumen_id')->withPivot('status_calpen_pria', 'status_calpen_wanita');
     }
+
+    public function dokumenPersetujuan() {
+        return $this->hasMany(DokumenPersetujuan::class, 'pernikahan_id');
+    }
 }
