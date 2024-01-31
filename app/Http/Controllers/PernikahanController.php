@@ -68,6 +68,7 @@ class PernikahanController extends Controller
         $pernikahan = $request->session()->get('pernikahan') ?? new PendaftaranNikah;
         $pernikahan->fill($data);
         $request->session()->put('pernikahan', $pernikahan);
+        $request->session()->put('current_step', 2);
 
         return redirect()->route('user.pernikahan.step-two');
     }
@@ -86,7 +87,9 @@ class PernikahanController extends Controller
 
         $pernikahan = $request->session()->get('pernikahan');
         $pernikahan->fill($data);
+
         $request->session()->put('pernikahan', $pernikahan);
+        $request->session()->put('current_step', 3);
 
         return redirect()->route('user.pernikahan.step-three');
     }
@@ -107,7 +110,9 @@ class PernikahanController extends Controller
 
         $calpen_pria = $request->session()->get('calpen_pria') ?? new CalonPengantin;
         $calpen_pria->fill($data);
+
         $request->session()->put('calpen_pria', $calpen_pria);
+        $request->session()->put('current_step', 4);
 
         return redirect()->route('user.pernikahan.step-four');
     }
@@ -128,7 +133,9 @@ class PernikahanController extends Controller
 
         $calpen_wanita = $request->session()->get('calpen_wanita') ?? new CalonPengantin;
         $calpen_wanita->fill($data);
+
         $request->session()->put('calpen_wanita', $calpen_wanita);
+        $request->session()->put('current_step', 5);
 
         return redirect()->route('user.pernikahan.step-five');
     }
@@ -144,7 +151,9 @@ class PernikahanController extends Controller
 
         $pernikahan = $request->session()->get('pernikahan') ?? new PendaftaranNikah;
         $pernikahan->fill($data);
+
         $request->session()->put('pernikahan', $pernikahan);
+        $request->session()->put('current_step', 6);
 
         return redirect()->route('user.pernikahan.step-six');
     }
@@ -205,6 +214,7 @@ class PernikahanController extends Controller
         $request->session()->forget('calpen_pria');
         $request->session()->forget('calpen_wanita');
         $request->session()->forget('pernikahan');
+        $request->session()->forget('current_step');
 
         return redirect()->route('user.pernikahan.index');
     }

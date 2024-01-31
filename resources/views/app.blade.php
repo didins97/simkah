@@ -202,7 +202,7 @@
                             " class="nav-link"><i class="fas fa-landmark"></i><span>Daftar {{Auth::user()->level !== 'admin' ? 'Layanan' : 'Vendor'}}</span></a>
                         </li>
                         @if (Auth::user()->level == 'admin' || Auth::user()->level == 'user')
-                        <li class="dropdown {{ Request::segment(2) === 'registrasi-nikah' || Request::segment(2) === 'pendaftaran-nikah' ? 'active' : '' }}">
+                        <li class="dropdown {{ Request::segment(2) === 'registrasi-nikah' || Request::segment(2) === 'pendaftaran' ? 'active' : '' }}">
                             <a href="
                             @switch(Auth::user()->level)
                                 @case('admin')
@@ -212,7 +212,7 @@
                                     {{-- {{ route('layanan.index') }} --}}
                                     @break
                                 @case('user')
-                                    {{ route('user.pernikahan.create') }}
+                                    {{ route('user.pernikahan.step-one') }}
                                     @break
                                 @default
                             @endswitch

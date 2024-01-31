@@ -130,27 +130,26 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/pendaftaran-nikah/{id}', [PernikahanController::class, 'show'])->name('user.pendaftaran-nikah.show');
         Route::get('/pendaftaran-nikah/print/{id}', [PernikahanController::class, 'printPdf'])->name('user.pendaftaran-nikah.pdf');
 
-        Route::get('/pendaftaran/step-one', [PernikahanController::class, 'stepOne'])->name('user.pernikahan.step-one');
+        Route::middleware('check.form.steps')->group(function () {
+            Route::get('/pendaftaran/step-one', [PernikahanController::class, 'stepOne'])->name('user.pernikahan.step-one');
+            Route::get('/pendaftaran/step-two', [PernikahanController::class, 'stepTwo'])->name('user.pernikahan.step-two');
+            Route::get('/pendaftaran/step-three', [PernikahanController::class, 'stepThree'])->name('user.pernikahan.step-three');
+            Route::get('/pendaftaran/step-four', [PernikahanController::class, 'stepFour'])->name('user.pernikahan.step-four');
+            Route::get('/pendaftaran/step-five', [PernikahanController::class, 'stepFive'])->name('user.pernikahan.step-five');
+            Route::get('/pendaftaran/step-six', [PernikahanController::class, 'stepSix'])->name('user.pernikahan.step-six');
+        });
+
         Route::post('/pendaftaran/step-one', [PernikahanController::class, 'storeStepOne'])->name('user.pernikahan.step-one.store');
-
-        Route::get('/pendaftaran/step-two', [PernikahanController::class, 'stepTwo'])->name('user.pernikahan.step-two');
         Route::post('/pendaftaran/step-two', [PernikahanController::class, 'storeStepTwo'])->name('user.pernikahan.step-two.store');
-
-        Route::get('/pendaftaran/step-three', [PernikahanController::class, 'stepThree'])->name('user.pernikahan.step-three');
         Route::post('/pendaftaran/step-three', [PernikahanController::class, 'storeStepThree'])->name('user.pernikahan.step-three.store');
-
-        Route::get('/pendaftaran/step-four', [PernikahanController::class, 'stepFour'])->name('user.pernikahan.step-four');
         Route::post('/pendaftaran/step-four', [PernikahanController::class, 'storeStepFour'])->name('user.pernikahan.step-four.store');
-
-        Route::get('/pendaftaran/step-five', [PernikahanController::class, 'stepFive'])->name('user.pernikahan.step-five');
         Route::post('/pendaftaran/step-five', [PernikahanController::class, 'storeStepFive'])->name('user.pernikahan.step-five.store');
-
-        Route::get('/pendaftaran/step-six', [PernikahanController::class, 'stepSix'])->name('user.pernikahan.step-six');
         Route::post('/pendaftaran/step-six', [PernikahanController::class, 'storeStepSix'])->name('user.pernikahan.step-six.store');
 
 
         Route::get('/session', function(){
-            // session()->flush();
+            session()->forget('current_step');
+            session()->forget('pernikahan');
             return session()->all();
         });
     });
